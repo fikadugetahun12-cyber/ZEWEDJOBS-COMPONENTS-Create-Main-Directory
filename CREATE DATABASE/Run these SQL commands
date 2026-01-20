@@ -1,0 +1,42 @@
+-- Create database
+CREATE DATABASE zewedjobs_admin;
+
+-- Use the database
+USE zewedjobs_admin;
+
+-- Create simple tables
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    telegram_id BIGINT UNIQUE,
+    username VARCHAR(100),
+    full_name VARCHAR(200),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE jobs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200),
+    description TEXT,
+    location VARCHAR(100),
+    salary_min INT,
+    salary_max INT,
+    status VARCHAR(20) DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE applications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    job_id INT,
+    applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (job_id) REFERENCES jobs(id)
+);
+
+-- Insert sample data
+INSERT INTO jobs (title, description, location, salary_min, salary_max) VALUES
+('Software Engineer', 'Build amazing software', 'Addis Ababa', 25000, 40000),
+('Marketing Manager', 'Lead marketing team', 'Addis Ababa', 20000, 35000);
+
+-- Exit
+EXIT;
