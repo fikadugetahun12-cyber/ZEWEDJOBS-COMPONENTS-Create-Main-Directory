@@ -1,0 +1,10 @@
+# Check what you created
+tree
+# Should show:
+zewedjobs-complete/
+├── admin-panel/
+├── telegram-bot/
+├── shared-database/
+├── scripts/
+├── docker/
+└── docs/
