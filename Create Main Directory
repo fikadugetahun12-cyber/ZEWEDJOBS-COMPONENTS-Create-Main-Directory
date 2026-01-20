@@ -1,0 +1,13 @@
+# Open Terminal/Command Prompt
+
+# Create main folder
+mkdir zewedjobs-complete
+cd zewedjobs-complete
+
+# Create all subdirectories
+mkdir -p admin-panel/{config,logs,includes,assets}
+mkdir -p telegram-bot
+mkdir -p shared-database/backups
+mkdir -p scripts
+mkdir -p docker
+mkdir -p docs
