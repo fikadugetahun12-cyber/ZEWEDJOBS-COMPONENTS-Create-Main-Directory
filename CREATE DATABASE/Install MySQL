@@ -1,0 +1,9 @@
+# On Ubuntu/Debian:
+sudo apt update
+sudo apt install mysql-server
+
+# On Mac:
+brew install mysql
+
+# On Windows:
+# Download from: https://dev.mysql.com/downloads/installer/
