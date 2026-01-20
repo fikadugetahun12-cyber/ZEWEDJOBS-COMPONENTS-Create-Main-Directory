@@ -1,0 +1,2 @@
+cd ..
+nano login.php
