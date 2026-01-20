@@ -1,0 +1,70 @@
+#!/bin/bash
+
+echo "🚀 ZewedJobs Setup Script"
+echo "========================"
+
+# Check Python
+if ! command -v python3 &> /dev/null; then
+    echo "❌ Python3 is required. Installing..."
+    # Add installation commands for your OS
+fi
+
+# Check PHP
+if ! command -v php &> /dev/null; then
+    echo "⚠️ PHP not found. Admin panel will not work."
+fi
+
+# Setup Telegram Bot
+echo "🐍 Setting up Telegram Bot..."
+cd telegram-bot
+
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install requirements
+pip install -r requirements.txt
+
+# Ask for bot token
+if [ ! -f ".env" ]; then
+    echo "📝 Please enter your Telegram Bot Token:"
+    read BOT_TOKEN
+    echo "BOT_TOKEN=$BOT_TOKEN" > .env
+    echo "ADMIN_IDS=123456789" >> .env
+fi
+
+# Start bot in background
+echo "🤖 Starting Telegram Bot..."
+python bot.py &
+BOT_PID=$!
+
+cd ..
+
+# Setup Admin Panel
+echo "🌐 Setting up Admin Panel..."
+cd admin-panel
+
+# Start PHP server
+if command -v php &> /dev/null; then
+    echo "🚀 Starting Admin Panel on http://localhost:8080"
+    php -S localhost:8080 &
+    PHP_PID=$!
+fi
+
+cd ..
+
+echo ""
+echo "✅ Setup Complete!"
+echo ""
+echo "📱 Access your systems:"
+echo "   • Telegram Bot: Search for your bot on Telegram"
+if command -v php &> /dev/null; then
+    echo "   • Admin Panel: http://localhost:8080"
+    echo "     Login: admin / admin123"
+fi
+echo ""
+echo "🛑 Press Ctrl+C to stop all services"
+
+# Wait for Ctrl+C
+trap 'kill $BOT_PID $PHP_PID 2>/dev/null; echo "Services stopped"; exit' INT
+wait
