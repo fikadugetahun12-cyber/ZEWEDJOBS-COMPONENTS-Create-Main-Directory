@@ -1,0 +1,13 @@
+# Create railway.json in telegram-bot folder
+cd telegram-bot
+nano railway.json
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "python bot.py",
+    "healthcheckPath": "/health"
+  }
+}
